@@ -1,0 +1,263 @@
+<!--
+StickerBros - Die Cut Stickers mockup
+Single-file HTML + CSS + small JS for interactive form
+Copy/paste into a .html file and open in a browser to view.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Die Cut Stickers — Mockup</title>
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#ffffff; --muted:#6b7280; --accent:#0ea5a8; --accent-2:#06b6d4;
+      --glass: rgba(255,255,255,0.6);
+      --max-width:1200px;
+      --radius:16px;
+      --shadow: 0 8px 30px rgba(17,24,39,0.06);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#eef2f6);color:#0f172a;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px}
+
+    .container{max-width:var(--max-width);width:100%;}
+    header{display:flex;align-items:center;gap:18px;margin-bottom:28px}
+    .logo{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;padding:10px 14px;border-radius:10px;font-weight:700}
+    .brand{font-size:18px}
+    .subtitle{color:var(--muted);font-size:13px}
+
+    .grid{display:grid;grid-template-columns:1fr 420px;gap:28px}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+
+    /* Product card */
+    .product-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .gallery{display:grid;grid-template-columns:280px 1fr;gap:18px;padding:22px}
+    @media (max-width:980px){.gallery{grid-template-columns:1fr}}
+
+    .main-image{border-radius:12px;display:flex;align-items:center;justify-content:center;min-height:220px;background:linear-gradient(180deg,#fff,#fbfdff);border:1px solid #eef2f6}
+    .main-image svg{width:220px;height:220px;opacity:0.95}
+    .thumbs{display:flex;flex-direction:column;gap:12px}
+    .thumb{width:64px;height:64px;border-radius:10px;background:#fff;border:1px solid #eef2f6;display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+    /* Info panel */
+    .info{padding:22px;border-left:1px dashed #f1f5f9}
+    .title{font-size:20px;font-weight:700;margin-bottom:6px}
+    .meta{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+    .badge{background:#eefbf9;color:#065f56;padding:6px 10px;border-radius:999px;font-size:13px}
+    .price{margin-left:auto;font-weight:800;font-size:20px}
+    .desc{color:var(--muted);line-height:1.5;margin-bottom:16px}
+
+    /* Options */
+    .options{display:grid;gap:12px}
+    .option{display:flex;flex-direction:column;gap:6px}
+    label{font-size:13px;color:#111827}
+    select,input[type=file]{padding:10px;border-radius:10px;border:1px solid #e6edf3;background:#fff}
+    .quantity-row{display:flex;gap:10px;align-items:center}
+    .qty-btn{padding:8px 12px;border-radius:10px;border:1px solid #e6edf3;background:transparent;cursor:pointer}
+
+    .cta{display:flex;gap:12px;margin-top:12px}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:12px 18px;border-radius:12px;border:none;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(6,182,212,0.12)}
+    .btn-secondary{background:transparent;border:1px solid #e6edf3;padding:10px 14px;border-radius:10px;cursor:pointer}
+
+    /* Sidebar */
+    .sidebar{position:sticky;top:36px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+    .spec{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #f1f5f9}
+    .spec:last-child{border-bottom:none}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* Price preview */
+    .price-preview{margin-top:12px;background:linear-gradient(180deg,#fbffff,#f8fcfd);padding:12px;border-radius:12px;border:1px solid #e6f6f8}
+    .total{font-size:18px;font-weight:800}
+
+    /* Extras */
+    .features{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .feature{background:#fff;padding:8px 10px;border-radius:10px;border:1px solid #f1f5f9;font-size:13px}
+
+    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .flex{display:flex;align-items:center;gap:8px}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">SB</div>
+      <div>
+        <div class="brand">StickerBros — Die Cut Stickers</div>
+        <div class="subtitle">Custom die-cut vinyl stickers • Weatherproof • Fast proofs</div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="product-card">
+        <div class="gallery">
+          <div class="main-image" id="mainImage">
+            <!-- SVG placeholder for sticker -->
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g" x1="0" x2="1">
+                  <stop offset="0" stop-color="#06b6d4"/>
+                  <stop offset="1" stop-color="#0ea5a8"/>
+                </linearGradient>
+              </defs>
+              <rect x="6" y="6" rx="28" ry="28" width="188" height="188" fill="white" stroke="#eef2f6"/>
+              <g transform="translate(30,30)">
+                <circle cx="70" cy="40" r="30" fill="url(#g)" opacity="0.95" />
+                <text x="70" y="47" font-size="22" text-anchor="middle" fill="white" font-weight="700">Sticker</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="thumbs" aria-hidden="true">
+            <div class="thumb" onclick="swap(0)"><svg width="40" height="40" viewBox="0 0 200 200"><rect x="6" y="6" rx="14" width="188" height="188" fill="#fff" stroke="#eef2f6"/><circle cx="100" cy="80" r="28" fill="#06b6d4"/></svg></div>
+            <div class="thumb" onclick="swap(1)"><svg width="40" height="40" viewBox="0 0 200 200"><rect x="6" y="6" rx="14" width="188" height="188" fill="#fff" stroke="#eef2f6"/><rect x="60" y="50" width="80" height="80" rx="12" fill="#0ea5a8"/></svg></div>
+            <div class="thumb" onclick="swap(2)"><svg width="40" height="40" viewBox="0 0 200 200"><rect x="6" y="6" rx="14" width="188" height="188" fill="#fff" stroke="#eef2f6"/><path d="M40 130 Q100 20 160 130 Z" fill="#06b6d4"/></svg></div>
+          </div>
+        </div>
+
+        <div class="info">
+          <div class="title">Die Cut Vinyl Stickers</div>
+          <div class="meta">
+            <div class="badge">Weatherproof</div>
+            <div class="muted">Vinyl • Gloss or Matte</div>
+            <div class="price">From <span id="displayPrice">$0.75</span></div>
+          </div>
+
+          <p class="desc">Custom die-cut stickers printed on thick vinyl. UV, scratch and water resistant — safe for outdoor use and dishwashers. Upload vector art (PDF/AI/SVG) or high-res PNG at 300dpi. Free online proof before printing.</p>
+
+          <div class="options">
+            <div class="option">
+              <label for="size">Size</label>
+              <select id="size" onchange="recalc()">
+                <option value="2">2″ × 2″</option>
+                <option value="3">3″ × 3″</option>
+                <option value="4">4″ × 4″</option>
+                <option value="5">5″ × 5″</option>
+              </select>
+            </div>
+
+            <div class="option">
+              <label for="finish">Material / Finish</label>
+              <select id="finish" onchange="recalc()">
+                <option value="gloss">Gloss White Vinyl</option>
+                <option value="matte">Matte White Vinyl</option>
+              </select>
+            </div>
+
+            <div class="option">
+              <label for="qty">Quantity</label>
+              <div class="quantity-row">
+                <button class="qty-btn" onclick="changeQty(-25)">-25</button>
+                <input id="qty" type="number" value="100" min="25" step="25" onchange="recalc()" />
+                <button class="qty-btn" onclick="changeQty(25)">+25</button>
+                <div class="muted">MOQ 25 — increments of 25</div>
+              </div>
+            </div>
+
+            <div class="option">
+              <label for="upload">Upload Artwork</label>
+              <input id="upload" type="file" accept="image/*,.pdf,.svg" />
+              <div class="muted" style="font-size:12px">Prefer vector (AI/SVG/PDF). CMYK, 300dpi. We provide free online proof.</div>
+            </div>
+
+            <div class="cta">
+              <button class="btn-primary" onclick="addToCart()">Get a Proof</button>
+              <button class="btn-secondary">Request Sample</button>
+            </div>
+
+            <div class="features">
+              <div class="feature">Free proofs</div>
+              <div class="feature">Next-day production</div>
+              <div class="feature">Dishwasher safe</div>
+              <div class="feature">Custom shapes</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <aside class="sidebar">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-weight:700">Quick Specs</div>
+          <div class="muted" style="font-size:13px">Ships worldwide</div>
+        </div>
+
+        <div class="spec"><div class="small">Material</div><div>Gloss / Matte Vinyl</div></div>
+        <div class="spec"><div class="small">Durability</div><div>3–5 years outdoor</div></div>
+        <div class="spec"><div class="small">Min Order</div><div>25 stickers</div></div>
+        <div class="spec"><div class="small">Turnaround</div><div>2–4 business days</div></div>
+
+        <div class="price-preview">
+          <div class="small">Est. price / unit</div>
+          <div class="total" id="unitPrice">$0.75</div>
+          <div style="display:flex;justify-content:space-between;margin-top:8px">
+            <div class="small">Qty</div><div id="sideQty">100</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;font-weight:700">
+            <div>Total</div><div id="grandTotal">$75.00</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="muted">Estimate excludes shipping & duties. Final price after proof approval.</div>
+
+      </aside>
+    </main>
+
+    <footer>
+      Mockup product page — not functional. Want a downloadable HTML file or additional screens (cart, checkout, mobile)? Reply and I’ll extend it.
+    </footer>
+  </div>
+
+  <script>
+    // simple price logic for mockup
+    const base = {"2":0.75,"3":0.85,"4":0.99,"5":1.15};
+    const finishMod = {"gloss":0, "matte":0.06};
+
+    function format(n){return '$' + n.toFixed(2)}
+    function recalc(){
+      const size = document.getElementById('size').value;
+      const finish = document.getElementById('finish').value;
+      let qty = parseInt(document.getElementById('qty').value) || 25;
+      if(qty < 25) qty = 25;
+      // round to 25
+      qty = Math.ceil(qty/25)*25;
+      document.getElementById('qty').value = qty;
+
+      const unit = base[size] * (1 + finishMod[finish]);
+      const total = unit * qty;
+      document.getElementById('displayPrice').textContent = format(unit);
+      document.getElementById('unitPrice').textContent = format(unit);
+      document.getElementById('sideQty').textContent = qty;
+      document.getElementById('grandTotal').textContent = format(total);
+    }
+
+    function changeQty(delta){
+      const el = document.getElementById('qty');
+      el.value = Math.max(25, parseInt(el.value || '25') + delta);
+      recalc();
+    }
+
+    function swap(i){
+      const svgSet = [
+        `<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"g\" x1=\"0\" x2=\"1\"><stop offset=\"0\" stop-color=\"#06b6d4\"/><stop offset=\"1\" stop-color=\"#0ea5a8\"/></linearGradient></defs><rect x=\"6\" y=\"6\" rx=\"28\" ry=\"28\" width=\"188\" height=\"188\" fill=\"white\" stroke=\"#eef2f6\"/><g transform=\"translate(30,30)\"><circle cx=\"70\" cy=\"40\" r=\"30\" fill=\"url(#g)\" opacity=\"0.95\" /><text x=\"70\" y=\"47\" font-size=\"22\" text-anchor=\"middle\" fill=\"white\" font-weight=\"700\">Sticker</text></g></svg>`,
+        `<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"6\" y=\"6\" rx=\"28\" width=\"188\" height=\"188\" fill=\"white\" stroke=\"#eef2f6\"/><rect x=\"44\" y=\"44\" width=\"112\" height=\"112\" rx=\"18\" fill=\"url(#g)\" /></svg>`,
+        `<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"6\" y=\"6\" rx=\"28\" width=\"188\" height=\"188\" fill=\"white\" stroke=\"#eef2f6\"/><path d=\"M20 140 Q100 10 180 140 Z\" fill=\"url(#g)\"/></svg>`
+      ];
+      document.getElementById('mainImage').innerHTML = svgSet[i] || svgSet[0];
+    }
+
+    function addToCart(){
+      const qty = document.getElementById('qty').value;
+      alert('Proof requested for ' + qty + ' stickers. (Mockup - no action performed)');
+    }
+
+    // init
+    recalc();
+  </script>
+</body>
+</html>
