@@ -59,7 +59,7 @@ Currency: Kenyan Shillings (Ksh)
     <!-- Step 1: Product -->
     <div id="step1">
       <label for="size">Size</label>
-      <select id="size"><option value="2">2″ × 2″</option><option value="3">3″ × 3″</option><option value="4">4″ × 4″</option></select>
+      <select id="size"><option value="2">32mm</option><option value="3">54</option><option value="4">75</option></select>
       <label for="finish">Material</label>
       <select id="finish"><option value="gloss">Gloss Vinyl</option><option value="matte">Matte Vinyl</option></select>
       <label for="qty">Quantity</label>
@@ -155,7 +155,7 @@ Currency: Kenyan Shillings (Ksh)
     const finish=document.getElementById('finish').value;
     const name=document.getElementById('name').value;
     const address=document.getElementById('address').value;
-    const pricePer={"2":50,"3":65,"4":80}; // in Ksh
+    const pricePer={"2":50,"3":60,"4":70}; // in Ksh
     const unit=pricePer[size]||50;
     const total=unit*qty;
     document.getElementById('summary').innerHTML=`<strong>${qty}</strong> stickers (${size}x${size}, ${finish})<br>Unit Price: Ksh ${unit}<br>Total: <strong>Ksh ${total}</strong><br><br>Ship to: ${name}, ${address}`;
